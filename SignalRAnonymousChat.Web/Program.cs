@@ -1,4 +1,6 @@
 
+using SignalRAnonymousChat.Web.Hubs;
+
 namespace SignalRAnonymousChat.Web
 {
     public class Program
@@ -13,6 +15,7 @@ namespace SignalRAnonymousChat.Web
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -26,7 +29,7 @@ namespace SignalRAnonymousChat.Web
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.MapHub<ChatHub>("/chathub");
 
             app.MapControllers();
 
