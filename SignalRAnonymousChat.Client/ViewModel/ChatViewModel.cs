@@ -2,7 +2,6 @@
 using SignalRAnonymousChat.Client.Services.ChatService;
 using SignalRAnonymousChat.Client.Services.NavigationService;
 using SignalRAnonymousChat.Client.Services.UsernameService;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +13,7 @@ namespace SignalRAnonymousChat.Client.ViewModel
         public ObservableCollection<string> Messages { get; }
 
         public string Message { get; set; } = string.Empty;
+        public string WelcomeMessage => $"Welcome to a simple anonymous chat, {Username?.CurrentUsername}.";
 
         public ICommand SendMessageCommand { get; }
 
@@ -30,13 +30,15 @@ namespace SignalRAnonymousChat.Client.ViewModel
         private async void OnSendMessageCommand(object parameter)
         {
             await _chat.SendMessage(Username!.CurrentUsername, Message);
+            Message = "";
+            OnPropertyChanged(nameof(Message));
         }
 
         private void SendMessageHandler(string username, string message)
         {
-            App.Current.Dispatcher.BeginInvoke((Action)delegate ()
+            System.Windows.Application.Current.Dispatcher.BeginInvoke(delegate()
             {
-                Messages.Add(Message = username == "" ? $"{message}" : $"{username}: {message}");
+                Messages.Add(username == "" ? $"{message}" : $"{username}: {message}");
             });
         }
     }

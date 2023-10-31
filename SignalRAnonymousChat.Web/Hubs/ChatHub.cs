@@ -4,7 +4,7 @@ namespace SignalRAnonymousChat.Web.Hubs
 {
     public class ChatHub : Hub
     {
-        public Dictionary<string, string> Users = new();
+        private static Dictionary<string, string> Users = new();
 
         public override async Task OnConnectedAsync()
         {
@@ -16,9 +16,7 @@ namespace SignalRAnonymousChat.Web.Hubs
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            string username = Users
-                .FirstOrDefault(u => u.Key == Context.ConnectionId)
-                .Value;
+            string? username = Users.GetValueOrDefault(Context.ConnectionId);
             Users.Remove(Context.ConnectionId);
             await SendMessageToChat(string.Empty, $"{username} left the chat room.");
             await base.OnDisconnectedAsync(exception);
