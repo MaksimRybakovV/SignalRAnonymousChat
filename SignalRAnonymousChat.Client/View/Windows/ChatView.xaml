@@ -5,8 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SignalRAnonymousChat.Client.View.Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Background="White"
+             d:DesignHeight="540" 
+             d:DesignWidth="960"
+             MinHeight="540" 
+             MinWidth="960">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <ListBox Margin="20" ItemsSource="{Binding Messages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Grid.Row="1"
+                 Grid.Column="0"
+                 Text="{Binding Message}"/>
+        <Button Grid.Column="1"
+                Grid.Row="1"
+                Content="Send"
+                Command="{Binding SendMessageCommand}"/>
     </Grid>
 </UserControl>

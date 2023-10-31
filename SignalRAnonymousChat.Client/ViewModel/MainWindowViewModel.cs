@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace SignalRAnonymousChat.Client.ViewModel
 {
-    class MainWindowViewModel : ConnectionViewModel
+    internal class MainWindowViewModel : ConnectionViewModel
     {
         private INavigationService<UserControl>? _navigation;
         private IUsernameService? _username;
