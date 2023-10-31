@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignalRAnonymousChat.Client.ViewModel;
 using System.Windows;
 
 namespace SignalRAnonymousChat.Client
